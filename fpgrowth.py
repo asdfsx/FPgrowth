@@ -11,7 +11,7 @@ class treeNode:
         self.count += numOccur
     
     def disp(self, ind=1):
-        print '  '*ind, self.name, ' ', self.count
+        print('  '*ind, self.name, ' ', self.count)
         for child in self.children.values():
             child.disp(ind+1)
 
@@ -39,7 +39,7 @@ def createFPtree(dataSet, minSup=1):
     for trans in dataSet:
         for item in trans:
             headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
-    for k in headerTable.keys():
+    for k in list(headerTable.keys()):
         if headerTable[k] < minSup:
             del(headerTable[k]) # 删除不满足最小支持度的元素
     freqItemSet = set(headerTable.keys()) # 满足最小支持度的频繁项集
@@ -58,7 +58,7 @@ def createFPtree(dataSet, minSup=1):
         if len(localD) > 0:
             # 根据全局频数从大到小对单样本排序
             # orderedItem = [v[0] for v in sorted(localD.iteritems(), key=lambda p:(p[1], -ord(p[0])), reverse=True)]
-            orderedItem = [v[0] for v in sorted(localD.iteritems(), key=lambda p:(p[1], int(p[0])), reverse=True)]
+            orderedItem = [v[0] for v in sorted(localD.items(), key=lambda p:(p[1], int(p[0])), reverse=True)]
             # 用过滤且排序后的样本更新树
             updateFPtree(orderedItem, retTree, headerTable, count)
     return retTree, headerTable
@@ -106,7 +106,7 @@ def createInitSet(dataSet):
     retDict={}
     for trans in dataSet:
 	    key = frozenset(trans)
-	    if retDict.has_key(key):
+	    if key in retDict:
 	        retDict[frozenset(trans)] += 1
 	    else:
 		    retDict[frozenset(trans)] = 1
@@ -146,7 +146,7 @@ def calcConf(freqSet, H, supportData, br1, minConf=0.7):
     for conseq in H:
         conf = supportData[freqSet] / supportData[freqSet - conseq]
         if conf >= minConf:
-            print "{0} --> {1} conf:{2}".format(freqSet - conseq, conseq, conf)
+            print("{0} --> {1} conf:{2}".format(freqSet - conseq, conseq, conf))
             br1.append((freqSet - conseq, conseq, conf))
             prunedH.append(conseq)
     return prunedH

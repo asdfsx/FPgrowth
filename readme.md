@@ -10,6 +10,10 @@ Two examples using FP-growth to discover frequent sets are provided in `main.py`
 
 Please download `kosarak.dat` from [here](http://fimi.ua.ac.be/data/).
 
+```bash
+wget http://fimi.uantwerpen.be/data/kosarak.dat
+```
+
 # Usage
 
 ```python

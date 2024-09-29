@@ -26,14 +26,14 @@ myFPtree, myHeaderTab = fpgrowth.createFPtree(initSet, n)
 freqItems = []
 fpgrowth.mineFPtree(myFPtree, myHeaderTab, n, set([]), freqItems)
 for x in freqItems:
-    print x
-print time.time()-start, 'sec'
+    print(x)
+print(time.time()-start, 'sec')
 
 # compute support values of freqItems
 suppData = fpgrowth.calSuppData(myHeaderTab, freqItems, len(parsedDat))
 suppData[frozenset([])] = 1.0
-for x,v in suppData.iteritems():
-    print x,v
+for x,v in suppData.items():
+    print(x,v)
 
 freqItems = [frozenset(x) for x in freqItems]
 fpgrowth.generateRules(freqItems, suppData)
